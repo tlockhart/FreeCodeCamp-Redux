@@ -12,6 +12,23 @@ async () => {
   }
 });
 
+// create a new createAsyncThunk to create a new todo on the API
+export const addTodoAsync = createAsyncThunk('todos/addTodoAsyn', async(payload) => {
+  const response = await fetch('http://localhost:7000/todos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({title: payload.title})
+  })
+
+  // if response is ok return the new list of responses
+  if(response.ok) {
+    const todo = await response.json();
+    return {todo };
+  }
+});
+
 const todoSlice = createSlice({
   name: "todos",
   // initial state in store
@@ -56,6 +73,11 @@ const todoSlice = createSlice({
       // react will return our new state
       console.log('fetched data successfully');
       return action.payload.todos;
+    },
+    // When the action is triggered, the reducer will take the todo from the payload and push it to the current state.  
+    // Redux will update the store and notify our components that something has changed
+    [addTodoAsync.fulfilled]: (state, action) => {
+      state.push(action.payload.todo);
     }
   }
 });
