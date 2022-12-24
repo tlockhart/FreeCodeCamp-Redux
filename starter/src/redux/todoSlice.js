@@ -1,4 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+// Thunk the new action that will be dispatched from our component.  
+// The Thunk will dispatch its own action when the response completes
+// with the data from the API Call as the payload
+export const getTodosAsync = createAsyncThunk('todos/getTodosAsync',
+async () => {
+  const response = await fetch('http://localhost:7000/todos');
+  if (response.ok) {
+    const todos = await response.json();
+    return {todos}
+  }
+});
 
 const todoSlice = createSlice({
   name: "todos",
@@ -31,8 +43,21 @@ const todoSlice = createSlice({
     deleteTodo: (state, action) => {
         // compare the tod id with the id of the action payload
         return state.filter((todo) => todo.id !== action.payload.id);
-    }
+    },
   },
+  // Specify additional reducers that our todoSlice can use.  
+  extraReducers: {
+    // Console when the getTodosAsync is pending and not yet fulfilled
+    [getTodosAsync.pending]: (state, action) => {
+      console.log('fetching data...');
+    },
+    // The getTodosAsync Thunk will be fullfilled when the API call has completed and dispatched the action successfully
+    [getTodosAsync.fulfilled]: (state, action) => {
+      // react will return our new state
+      console.log('fetched data successfully');
+      return action.payload.todos;
+    }
+  }
 });
 
 // Note: todSlice.actions automatic creates actions based on our reducer names

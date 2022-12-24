@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "b95d4d1d-b563-4aa0-b7eb-4900611842b8",
+		"name": "FreeCodeCamp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1065657"
+	},
+	"item": [
+		{
+			"name": "Redux Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7000/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert todo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"This is my new todo!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7000/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
