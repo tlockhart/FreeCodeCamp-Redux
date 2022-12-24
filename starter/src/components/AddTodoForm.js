@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {addTodo } from '../redux/todoSlice';
 
 const AddTodoForm = () => {
 	const [value, setValue] = useState('');
 
+	const dispatch = useDispatch();
+
 	const onSubmit = (event) => {
 		event.preventDefault();
+		// dispatch addTodo action
+	dispatch(addTodo({
+		title: value,
+	}));
 		console.log('user entered: ' + value);
 	};
 
