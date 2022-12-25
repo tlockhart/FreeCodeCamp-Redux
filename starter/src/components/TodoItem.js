@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import {toggleComplete, deleteTodo } from '../redux/todoSlice';
+// import {toggleComplete, deleteTodo } from '../redux/todoSlice';
+import {toggleCompleteAsync, deleteTodo } from '../redux/todoSlice';
 
 const TodoItem = ({ id, title, completed }) => {
 	const dispatch = useDispatch();
@@ -8,7 +9,11 @@ const TodoItem = ({ id, title, completed }) => {
 	// create a handleCompleteClick function
 	const handleCompleteClick = () => {
 		// Pass in the new completed object to the action
-		dispatch(toggleComplete({
+		// dispatch(toggleComplete({
+		// 	id: id,
+		// 	completed: !completed,
+		// }));
+		dispatch(toggleCompleteAsync({
 			id: id,
 			completed: !completed,
 		}));
